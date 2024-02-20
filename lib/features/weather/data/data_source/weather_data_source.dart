@@ -2,20 +2,22 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as https;
 
-import '../models/weather.dart';
+import '../models/weather_model.dart';
 
 class OpenWeatherApiClient{
   OpenWeatherApiClient({https.Client? httpClient}) : _httpsClient=httpClient ?? https.Client();
   final https.Client _httpsClient;
-  Future<Weather?> getWeather(double latitude, double longitude) async{
+  static const _baseUrlWeather = 'api.open-meteo.com';
+  Future<WeatherModel?> getWeather(double latitude, double longitude) async{
     var weatherRequest = Uri.https(
-        'https://api.open-meteo.com',
+        _baseUrlWeather,
         '/v1/forecast',
         {'latitude': latitude,'longitude': longitude,'current_weather': true}
     );
     var response = await _httpsClient.get(weatherRequest);
+    print('get weather');
     if(response.statusCode == 200){
-      return Weather.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+      return WeatherModel.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
     }else{
       return null;
     }

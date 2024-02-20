@@ -6,14 +6,15 @@ import 'package:http/http.dart' as https;
 class OpenLocationApiClient{
   OpenLocationApiClient({https.Client? httpClient}) : _httpClient= httpClient ?? https.Client();
   final https.Client _httpClient;
-
+  static const _baseUrlGeocoding = 'geocoding-api.open-meteo.com';
   Future<Location?> getLocation (String query) async{
     final locationRequest = Uri.https(
-      'https://geocoding-api.open-meteo.com',
+      _baseUrlGeocoding,
       '/v1/search',
       {'name': query, 'count': '1'},
     );
     final response = await _httpClient.get(locationRequest);
+    print('get location');
     if(response.statusCode != 200){
       return null;
     }else {

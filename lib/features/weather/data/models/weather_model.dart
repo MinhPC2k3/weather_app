@@ -1,9 +1,9 @@
-class Weather {
+class WeatherModel {
   CurrentWeather? currentWeather;
 
-  Weather({this.currentWeather});
+  WeatherModel({this.currentWeather});
 
-  Weather.fromJson(Map<String, dynamic> json) {
+  WeatherModel.fromJson(Map<String, dynamic> json) {
     currentWeather = json['current_weather'] != null
         ? new CurrentWeather.fromJson(json['current_weather'])
         : null;
@@ -49,4 +49,7 @@ class CurrentWeather {
     data['weathercode'] = this.weathercode;
     return data;
   }
+
+  // @override
+  // List<Object> get props => [location, temperature, condition];
 }
