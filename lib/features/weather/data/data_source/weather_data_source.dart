@@ -8,11 +8,11 @@ class OpenWeatherApiClient{
   OpenWeatherApiClient({https.Client? httpClient}) : _httpsClient=httpClient ?? https.Client();
   final https.Client _httpsClient;
   static const _baseUrlWeather = 'api.open-meteo.com';
-  Future<WeatherModel?> getWeather(double latitude, double longitude) async{
+  Future<WeatherModel?> getWeatherApi(double latitude, double longitude) async{
     var weatherRequest = Uri.https(
         _baseUrlWeather,
         '/v1/forecast',
-        {'latitude': latitude,'longitude': longitude,'current_weather': true}
+        {'latitude': '$latitude','longitude': '$latitude','current_weather': 'true'}
     );
     var response = await _httpsClient.get(weatherRequest);
     print('get weather');

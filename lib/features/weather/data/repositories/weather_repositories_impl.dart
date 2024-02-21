@@ -13,8 +13,8 @@ class WeatherRepositoriesImp implements WeatherRepositories {
   @override
   Future<Weather> getWeather(String city) async{
     final location = await _clientLocation.getLocation(city);
-    final weather = await _clientWeather.getWeather(location!.results![0].latitude!, location.results![0].longitude!);
-    print('from data repository');
+    final weather = await _clientWeather.getWeatherApi(location!.results!.elementAt(0).latitude!, location.results!.elementAt(0).longitude!);
+    print('from data repository ${location.results![0].name!} temparature ${weather!.currentWeather!.temperature!}');
     return Weather(
       temperature: weather!.currentWeather!.temperature!,
       location: location.results![0].name!,

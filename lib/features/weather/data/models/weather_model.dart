@@ -20,32 +20,20 @@ class WeatherModel {
 
 class CurrentWeather {
   double? temperature;
-  int? windspeed;
-  int? winddirection;
-  int? isDay;
   int? weathercode;
 
   CurrentWeather(
       {this.temperature,
-        this.windspeed,
-        this.winddirection,
-        this.isDay,
         this.weathercode});
 
   CurrentWeather.fromJson(Map<String, dynamic> json) {
     temperature = json['temperature'];
-    windspeed = json['windspeed'];
-    winddirection = json['winddirection'];
-    isDay = json['is_day'];
     weathercode = json['weathercode'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['temperature'] = this.temperature;
-    data['windspeed'] = this.windspeed;
-    data['winddirection'] = this.winddirection;
-    data['is_day'] = this.isDay;
     data['weathercode'] = this.weathercode;
     return data;
   }

@@ -3,13 +3,12 @@ import 'package:my_app/features/weather/data/repositories/weather_repositories_i
 import 'package:my_app/features/weather/domain/entities/weather.dart';
 import 'package:my_app/features/weather/domain/repositories/weather_repository.dart';
 
-class WeatherUseCase  implements WeatherRepositories{
+class WeatherUseCase {
   WeatherUseCase({required WeatherRepositories repository}) : weatherRepositories=repository;
 
   final WeatherRepositories weatherRepositories;
 
-  @override
-  Future<Weather> getWeather(String city) async{
+  Future<Weather> getWeatherData(String city) async{
     print('doing');
     return await weatherRepositories.getWeather(city);
   }}
