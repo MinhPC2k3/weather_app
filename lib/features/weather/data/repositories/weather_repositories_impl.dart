@@ -3,20 +3,17 @@ import 'package:my_app/features/weather/domain/repositories/weather_repository.d
 
 import '../data_source/weather_data_source.dart';
 import '../../domain/mapper/mappers.dart';
-import '../../../search/data/data_source/location_data_source.dart';
-import 'package:http/http.dart' as https;
 
 class WeatherRepositoriesImp implements WeatherRepositories {
-  WeatherRepositoriesImp({OpenLocationApiClient? clientLocation,OpenWeatherApiClient? clientWeather}) : _clientLocation= clientLocation ?? OpenLocationApiClient(), _clientWeather= clientWeather ?? OpenWeatherApiClient();
-  final OpenLocationApiClient _clientLocation;
+  WeatherRepositoriesImp({OpenWeatherApiClient? clientWeather}) : _clientWeather= clientWeather ?? OpenWeatherApiClient();
   final OpenWeatherApiClient _clientWeather;
   @override
   Future<Weather> getWeather(String city) async{
-    final location = await _clientLocation.getLocation(city);
+    final location = await _clientWeather.getLocation(city);
     final weather = await _clientWeather.getWeatherApi(location!.results!.elementAt(0).latitude!, location.results!.elementAt(0).longitude!);
     print('from data repository ${location.results![0].name!} temparature ${weather!.currentWeather!.temperature!}');
     return Weather(
-      temperature: weather!.currentWeather!.temperature!,
+      temperature: weather.currentWeather!.temperature!,
       location: location.results![0].name!,
       condition: weather.currentWeather!.weathercode!.toInt().toCondition,
     );

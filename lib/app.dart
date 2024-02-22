@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:my_app/features/search/data/data_source/location_data_source.dart';
 import 'package:my_app/features/weather/data/data_source/weather_data_source.dart';
 import 'package:my_app/features/weather/data/repositories/weather_repositories_impl.dart';
 import 'package:my_app/features/weather/domain/use_cases/weather_usecase.dart';
+import 'features/weather/presentation/view/search_screen.dart';
 import 'features/weather/presentation/widget/weather_empty.dart';
 import 'features/weather/presentation/widget/weather_populated.dart';
 import 'features/weather/presentation/widget/weather_error.dart';
@@ -14,6 +14,7 @@ import 'features/weather/domain/repositories/weather_repository.dart';
 import 'features/weather/presentation/cubit/theme_cubit.dart';
 import 'features/weather/presentation/cubit/weather_cubit.dart';
 import 'features/weather/presentation/cubit/weather_state.dart';
+import 'features/weather/presentation/view/setting_screen.dart';
 import 'package:http/http.dart' as https;
 
 class WeatherApp extends StatefulWidget{
@@ -35,10 +36,11 @@ class _WeatherAppState extends State<WeatherApp> {
   Widget build(BuildContext context){
     return RepositoryProvider.value(
         value: weatherUseCase,
-        child: BlocProvider(
-          create: (_) => WeatherCubit(weatherRepositoriesImp: repo),
-          child: const WeatherAppView(),
-        )
+        // child: BlocProvider(
+        //   create: (_) => WeatherCubit(weatherUseCase: weatherUseCase),
+        //   child: const WeatherAppView(),
+        // )
+      child: const WeatherAppView(),
     );
   }
 }
@@ -68,7 +70,7 @@ class WeatherPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => WeatherCubit(weatherRepositoriesImp: context.read<WeatherCubit>().weatherRepositoriesImp),
+      create: (context) => WeatherCubit(weatherUseCase: context.read<WeatherUseCase>()),
       child: const WeatherView(),
     );
   }
@@ -91,9 +93,9 @@ class _WeatherViewState extends State<WeatherView> {
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () {
-              // Navigator.of(context).push<void>(
-              //   SettingsPage.route(context.read<WeatherCubit>()),
-              // );
+              Navigator.of(context).push<void>(
+                SettingScreen.route(context.read<WeatherCubit>()),
+              );
             },
           ),
         ],
@@ -131,9 +133,9 @@ class _WeatherViewState extends State<WeatherView> {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.search, semanticLabel: 'Search'),
         onPressed: () async {
-          // final city = await Navigator.of(context).push(SearchPage.route());
-          // if (!mounted) return;
-          await context.read<WeatherCubit>().fetchWeather("Hanoi");
+          final city = await Navigator.of(context).push(SearchScreen.route());
+          if (!mounted) return;
+          await context.read<WeatherCubit>().fetchWeather(city);
         },
       ),
     );

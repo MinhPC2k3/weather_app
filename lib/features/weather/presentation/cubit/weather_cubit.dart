@@ -9,9 +9,9 @@ import '../../domain/repositories/weather_repository.dart';
 
 
 class WeatherCubit extends Cubit<WeatherState> {
-  WeatherCubit({required  this.weatherRepositoriesImp}) : super(WeatherState());
+  WeatherCubit({required this.weatherUseCase}) : super(WeatherState());
 
-  final WeatherRepositoriesImp weatherRepositoriesImp ;
+  final WeatherUseCase weatherUseCase ;
 
   Future<void> fetchWeather(String? city) async {
     if (city == null || city.isEmpty) return;
@@ -19,7 +19,7 @@ class WeatherCubit extends Cubit<WeatherState> {
     emit(state.copyWith(status: WeatherStatus.loading));
 
     try {
-      final weather = await weatherRepositoriesImp.getWeather(city);
+      final weather = await weatherUseCase.getWeatherData(city);
       final units = state.temperatureUnits;
       final value = units!.isFahrenheit
           ? weather.temperature.toFahrenheit()
@@ -41,7 +41,7 @@ class WeatherCubit extends Cubit<WeatherState> {
     if (!state.weatherStatus!.isSuccess) return;
     if (state.weather == Weather.empty) return;
     try {
-      final weather = await weatherRepositoriesImp.getWeather(state.weather.location);
+      final weather = await weatherUseCase.getWeatherData(state.weather.location);
       final units = state.temperatureUnits;
       final value = units!.isFahrenheit
           ? weather.temperature.toFahrenheit()

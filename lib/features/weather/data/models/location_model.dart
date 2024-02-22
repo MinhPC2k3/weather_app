@@ -1,9 +1,9 @@
-class Location {
+class LocationModel {
   List<Results>? results;
 
-  Location({this.results});
+  LocationModel({this.results});
 
-  Location.fromJson(Map<String, dynamic> json) {
+  LocationModel.fromJson(Map<String, dynamic> json) {
     if (json['results'] != null) {
       results = <Results>[];
       json['results'].forEach((v) {
