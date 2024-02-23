@@ -12,12 +12,10 @@ class ThemeCubit extends Cubit<Color> {
     if (weather != null) emit(weather.toColor);
   }
 
-  @override
   Color fromJson(Map<String, dynamic> json) {
     return Color(int.parse(json['color'] as String));
   }
 
-  @override
   Map<String, dynamic> toJson(Color state) {
     return <String, String>{'color': '${state.value}'};
   }

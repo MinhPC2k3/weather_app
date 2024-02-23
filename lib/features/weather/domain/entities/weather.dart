@@ -1,6 +1,5 @@
 import '../mapper/mappers.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
 class Weather extends Equatable{
   const Weather({
@@ -16,7 +15,7 @@ class Weather extends Equatable{
   @override
   List<Object?> get props => [location, temperature, condition];
 
-  static final empty = const Weather(
+  static const empty = Weather(
     condition: WeatherCondition.unknown,
     // lastUpdated: DateTime(0),
     temperature: 0,

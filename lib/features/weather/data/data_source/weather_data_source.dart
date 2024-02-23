@@ -18,7 +18,6 @@ class OpenWeatherApiClient{
       {'name': query, 'count': '1'},
     );
     final response = await _httpsClient.get(locationRequest);
-    print('get location');
     if(response.statusCode != 200){
       return null;
     }else {
@@ -32,7 +31,6 @@ class OpenWeatherApiClient{
         {'latitude': '$latitude','longitude': '$latitude','current_weather': 'true'}
     );
     var response = await _httpsClient.get(weatherRequest);
-    print('get weather');
     if(response.statusCode == 200){
       return WeatherModel.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
     }else{

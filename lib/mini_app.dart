@@ -3,9 +3,9 @@ import 'app.dart';
 import 'bloc_observe.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
+void initApp() {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
-  runApp(WeatherApp());
+  runApp(const WeatherApp());
 }
 

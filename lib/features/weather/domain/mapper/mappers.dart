@@ -1,5 +1,3 @@
-import 'package:my_app/features/weather/data/models/weather_model.dart';
-import 'package:my_app/features/weather/domain/entities/weather.dart';
 
 enum WeatherCondition {
   clear,

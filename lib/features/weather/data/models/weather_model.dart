@@ -5,14 +5,14 @@ class WeatherModel {
 
   WeatherModel.fromJson(Map<String, dynamic> json) {
     currentWeather = json['current_weather'] != null
-        ? new CurrentWeather.fromJson(json['current_weather'])
+        ? CurrentWeather.fromJson(json['current_weather'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.currentWeather != null) {
-      data['current_weather'] = this.currentWeather!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (currentWeather != null) {
+      data['current_weather'] = currentWeather!.toJson();
     }
     return data;
   }
@@ -32,9 +32,9 @@ class CurrentWeather {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['temperature'] = this.temperature;
-    data['weathercode'] = this.weathercode;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['temperature'] = temperature;
+    data['weathercode'] = weathercode;
     return data;
   }
 

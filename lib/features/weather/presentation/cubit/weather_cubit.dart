@@ -1,15 +1,12 @@
-import 'package:my_app/features/weather/data/repositories/weather_repositories_impl.dart';
 import 'package:my_app/features/weather/domain/use_cases/weather_usecase.dart';
 import 'package:my_app/features/weather/presentation/cubit/weather_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '';
 import '../../domain/entities/weather.dart';
 import '../../domain/mapper/mappers.dart';
-import '../../domain/repositories/weather_repository.dart';
 
 
 class WeatherCubit extends Cubit<WeatherState> {
-  WeatherCubit({required this.weatherUseCase}) : super(WeatherState());
+  WeatherCubit({required this.weatherUseCase}) : super(const WeatherState());
 
   final WeatherUseCase weatherUseCase ;
 

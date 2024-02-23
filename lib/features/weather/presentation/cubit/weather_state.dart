@@ -1,10 +1,9 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:my_app/features/weather/domain/mapper/mappers.dart';
 import '../../domain/entities/weather.dart';
 
 class WeatherState extends Equatable{
-  WeatherState({this.weatherStatus=WeatherStatus.initial,this.temperatureUnits=TemperatureUnits.celsius,Weather? weather}) : weather=weather ?? Weather.empty;
+  const WeatherState({this.weatherStatus=WeatherStatus.initial,this.temperatureUnits=TemperatureUnits.celsius,Weather? weather}) : weather=weather ?? Weather.empty;
   final WeatherStatus? weatherStatus;
   final TemperatureUnits? temperatureUnits;
   final Weather weather;
