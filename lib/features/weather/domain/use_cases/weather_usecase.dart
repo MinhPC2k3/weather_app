@@ -1,5 +1,5 @@
-import 'package:my_app/features/weather/domain/entities/weather.dart';
-import 'package:my_app/features/weather/domain/repositories/weather_repository.dart';
+import 'package:minh_weather_app/features/weather/domain/entities/weather.dart';
+import 'package:minh_weather_app/features/weather/domain/repositories/weather_repository.dart';
 
 class WeatherUseCase {
   WeatherUseCase({required WeatherRepositories repository}) : weatherRepositories=repository;

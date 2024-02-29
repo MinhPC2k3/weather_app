@@ -1,5 +1,5 @@
-import 'package:my_app/features/weather/domain/use_cases/weather_usecase.dart';
-import 'package:my_app/features/weather/presentation/cubit/weather_state.dart';
+import 'package:minh_weather_app/features/weather/domain/use_cases/weather_usecase.dart';
+import 'package:minh_weather_app/features/weather/presentation/cubit/weather_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../domain/entities/weather.dart';
 import '../../domain/mapper/mappers.dart';

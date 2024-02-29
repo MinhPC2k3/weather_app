@@ -1,3 +1,3 @@
-library weather_app;
+library minh_weather_app;
 
-export 'mini_app.dart';
+export 'main.dart';

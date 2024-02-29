@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:my_app/features/weather/domain/mapper/mappers.dart';
-import 'package:my_app/features/weather/presentation/cubit/weather_cubit.dart';
+import 'package:minh_weather_app/features/weather/domain/mapper/mappers.dart';
+import 'package:minh_weather_app/features/weather/presentation/cubit/weather_cubit.dart';
 
 import '../cubit/weather_state.dart';
 

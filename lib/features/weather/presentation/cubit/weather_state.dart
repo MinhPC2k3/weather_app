@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:my_app/features/weather/domain/mapper/mappers.dart';
+import 'package:minh_weather_app/features/weather/domain/mapper/mappers.dart';
 import '../../domain/entities/weather.dart';
 
 class WeatherState extends Equatable{

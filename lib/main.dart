@@ -6,7 +6,7 @@ import 'bloc_observe.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/services.dart';
 
-void initApp() {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
   runApp(const WeatherApp());

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:my_app/features/weather/data/repositories/weather_repositories_impl.dart';
-import 'package:my_app/features/weather/domain/use_cases/weather_usecase.dart';
+import 'package:minh_weather_app/features/weather/data/repositories/weather_repositories_impl.dart';
+import 'package:minh_weather_app/features/weather/domain/use_cases/weather_usecase.dart';
 import 'features/weather/presentation/view/search_screen.dart';
 import 'features/weather/presentation/widget/weather_empty.dart';
 import 'features/weather/presentation/widget/weather_populated.dart';
