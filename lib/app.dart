@@ -37,29 +37,86 @@ class _WeatherAppState extends State<WeatherApp> {
         //   create: (_) => WeatherCubit(weatherUseCase: weatherUseCase),
         //   child: const WeatherAppView(),
         // )
-      child: const WeatherAppView(),
-    );
-  }
-}
-
-class WeatherAppView extends StatelessWidget {
-  const WeatherAppView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
+      child: MaterialApp(
+        theme: ThemeData(
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+          ),
+          // colorScheme: ColorScheme.fromSeed(seedColor: color),
+          textTheme: GoogleFonts.rajdhaniTextTheme(),
         ),
-        // colorScheme: ColorScheme.fromSeed(seedColor: color),
-        textTheme: GoogleFonts.rajdhaniTextTheme(),
+        home: BlocProvider(
+            create: (context) => WeatherCubit(weatherUseCase: context.read<WeatherUseCase>()),
+            child: BlocConsumer<WeatherCubit, WeatherState>(
+              builder: (context, state) {
+                return Scaffold(
+                  extendBodyBehindAppBar: true,
+                  appBar: AppBar(
+                    actions: [
+                      IconButton(
+                        icon: const Icon(Icons.settings),
+                        onPressed: () {
+                          Navigator.of(context).push<void>(
+                            SettingScreen.route(context.read<WeatherCubit>()),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                  body: Center(
+                      child:switch (state.weatherStatus) {
+                        WeatherStatus.initial => const WeatherEmpty(),
+                        WeatherStatus.loading => const WeatherLoading(),
+                        WeatherStatus.success =>
+                            WeatherPopulated(
+                              weather: state.weather,
+                              units: state.temperatureUnits!,
+                              onRefresh: () {
+                                return context.read<WeatherCubit>().refreshWeather();
+                              },
+                            ),
+                        WeatherStatus.failure =>
+                        const WeatherError(),
+                        null => const WeatherError(),
+                      }
+                  ),
+                  floatingActionButton: FloatingActionButton(
+                    child: const Icon(Icons.search, semanticLabel: 'Search'),
+                    onPressed: () async {
+                      final city = await Navigator.of(context).push(SearchScreen.route());
+                      await context.read<WeatherCubit>().fetchWeather(city);
+                    },
+                  ),
+                );
+              },
+              listener: (BuildContext context, state) {  },
+
+            )
+        ),
       ),
-      home: const WeatherPage(),
     );
   }
 }
+
+// class WeatherAppView extends StatelessWidget {
+//   const WeatherAppView({super.key});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       theme: ThemeData(
+//         appBarTheme: const AppBarTheme(
+//           backgroundColor: Colors.transparent,
+//           elevation: 0,
+//         ),
+//         // colorScheme: ColorScheme.fromSeed(seedColor: color),
+//         textTheme: GoogleFonts.rajdhaniTextTheme(),
+//       ),
+//       home: const WeatherPage(),
+//     );
+//   }
+// }
 
 class WeatherPage extends StatelessWidget {
   const WeatherPage({super.key});
@@ -68,7 +125,51 @@ class WeatherPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => WeatherCubit(weatherUseCase: context.read<WeatherUseCase>()),
-      child: const WeatherView(),
+      child: BlocConsumer<WeatherCubit, WeatherState>(
+        builder: (context, state) {
+          return Scaffold(
+            extendBodyBehindAppBar: true,
+            appBar: AppBar(
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.settings),
+                  onPressed: () {
+                    Navigator.of(context).push<void>(
+                      SettingScreen.route(context.read<WeatherCubit>()),
+                    );
+                  },
+                ),
+              ],
+            ),
+            body: Center(
+              child:switch (state.weatherStatus) {
+                     WeatherStatus.initial => const WeatherEmpty(),
+                     WeatherStatus.loading => const WeatherLoading(),
+                     WeatherStatus.success =>
+                       WeatherPopulated(
+                        weather: state.weather,
+                        units: state.temperatureUnits!,
+                        onRefresh: () {
+                          return context.read<WeatherCubit>().refreshWeather();
+                        },
+                      ),
+                     WeatherStatus.failure =>
+                       const WeatherError(),
+                     null => const WeatherError(),
+                  }
+            ),
+            floatingActionButton: FloatingActionButton(
+              child: const Icon(Icons.search, semanticLabel: 'Search'),
+              onPressed: () async {
+                final city = await Navigator.of(context).push(SearchScreen.route());
+                await context.read<WeatherCubit>().fetchWeather(city);
+              },
+            ),
+          );
+        },
+        listener: (BuildContext context, state) {  },
+
+      )
     );
   }
 }
